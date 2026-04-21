@@ -1,5 +1,30 @@
-dist
-node_modules
+# Dependencies (never commit — huge file count breaks GitHub web upload)
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Vite / tooling cache
+.vite/
+*.tsbuildinfo
+
+# Local env
 .env
 .env.*
+!.env.example
 *.local
+
+# Logs & OS
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Test / coverage
+coverage/
