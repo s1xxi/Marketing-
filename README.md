@@ -1,29 +1,49 @@
 # NextBound
 
-Marketing intelligence demo (dummy data): funnel + revenue, cohort curves, CAC vs LTV scatter. Vite, React, TypeScript, Tailwind, Recharts.
+Marketing demo (dummy data): funnel, cohorts, CAC vs LTV. **Vite + React.**
 
-## GitHub
+---
 
-Push **this folder** as its own repository root (all files at the top level — no parent `openclaw` folder).
+## Host on Vercel (easiest path)
 
-## Vercel
+### 1. Code is on GitHub
 
-1. **Add New Project** → import your GitHub repo.
-2. **Root Directory:** leave as `.` (repo root).
-3. **Framework Preset:** Vite (or auto-detect).
-4. **Build Command:** `npm run build`
-5. **Output Directory:** `dist`
-6. **Install Command:** `npm install`
+Your repo should show `package.json` and `src/` at the **top level** (not buried inside another folder).
 
-**Environment variables:** leave empty on Vercel. Do **not** set `MARKETING_MVP_BASE` there (that is only for GitHub Pages subpath builds). If the site is blank, open DevTools → Network: if JS/CSS URLs start with something like `/openclaw/` or `/wrong-repo/`, remove that env var and redeploy.
+### 2. Open Vercel and import
 
-**Vercel project settings:** Root directory `.`, Node 20+ (default is fine).
+1. Go to **[vercel.com/new](https://vercel.com/new)** and sign in.
+2. If GitHub is not connected yet: **Connect GitHub** → allow access → pick **All repositories** or only **NextBound**.
+3. Click **Import** next to your **NextBound** repo.
+4. On the configure screen: **do not change anything.** Leave Framework as **Vite**, Build `npm run build`, Output `dist` (Vercel fills this in automatically).
+5. Click **Deploy**.
 
-## Local
+When it turns green, open the **Visit** link. Done.
+
+### 3. If you see “Something went wrong” **before** you can pick a repo
+
+That is usually **GitHub ↔ Vercel**, not your code.
+
+- Vercel: **Account Settings** (profile menu) → **Authentication** / **Git** → **Reconnect** GitHub, or **Configure** and re-approve the NextBound repo.
+- Or try **Import Git Repository** again in an incognito window after logging into both sites.
+
+### 4. If the deploy **fails** (red build)
+
+- Open the failed deployment → **Building** → scroll the log.
+- Common fix: in project **Settings → Environment Variables**, remove any variable named `MARKETING_MVP_BASE` (you do not need any env vars for this app).
+
+### 5. If the page is **blank** but build succeeded
+
+Hard refresh: **Ctrl + Shift + R**.  
+Still blank: browser **F12** → **Console** and **Network** → look for red **404** lines and fix env vars as in step 4.
+
+---
+
+## Run on your computer
 
 ```bash
 npm install
 npm run dev
 ```
 
-Default dev server: [http://localhost:5174](http://localhost:5174).
+Then open the URL Vite prints (often [http://localhost:5174](http://localhost:5174)).
