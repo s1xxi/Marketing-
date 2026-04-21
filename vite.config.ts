@@ -5,7 +5,7 @@ import { defineConfig } from "vite";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 
-/** For GitHub Pages project sites set `MARKETING_MVP_BASE=/<repo>/` at build time. Root deploys use `/`. */
+/** For GitHub Pages project sites only: `MARKETING_MVP_BASE=/<repo>/` at build time. */
 function normalizeBase(input: string): string {
   const trimmed = input.trim();
   if (!trimmed) return "/";
@@ -14,7 +14,10 @@ function normalizeBase(input: string): string {
   return withLeading.endsWith("/") ? withLeading : `${withLeading}/`;
 }
 
-const base = normalizeBase(process.env.MARKETING_MVP_BASE ?? "/");
+/** Vercel (and similar) always serves this app from `/`. Ignore stray MARKETING_MVP_BASE in env. */
+const onVercel = process.env.VERCEL === "1";
+const customBase = process.env.MARKETING_MVP_BASE?.trim();
+const base = onVercel ? "/" : customBase ? normalizeBase(customBase) : "/";
 
 export default defineConfig({
   base,

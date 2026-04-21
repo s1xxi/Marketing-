@@ -15,7 +15,9 @@ Push **this folder** as its own repository root (all files at the top level — 
 5. **Output Directory:** `dist`
 6. **Install Command:** `npm install`
 
-No environment variables are required for the default deploy.
+**Environment variables:** leave empty on Vercel. Do **not** set `MARKETING_MVP_BASE` there (that is only for GitHub Pages subpath builds). If the site is blank, open DevTools → Network: if JS/CSS URLs start with something like `/openclaw/` or `/wrong-repo/`, remove that env var and redeploy.
+
+**Vercel project settings:** Root directory `.`, Node 20+ (default is fine).
 
 ## Local
 
