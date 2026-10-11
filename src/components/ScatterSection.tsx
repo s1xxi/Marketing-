@@ -1,6 +1,6 @@
 import { CASE_STUDY, CHANNEL_COLORS, CHANNEL_ROI, INSIGHTS } from "../data/caseStudy";
 import { chartAxisTick, chartGridStroke, chartTooltipStyle } from "../lib/chartTheme";
-import { formatUsd } from "../lib/format";
+import { formatUsd, formatUsdCompact } from "../lib/format";
 import {
   CartesianGrid,
   Cell,
@@ -37,27 +37,29 @@ export function ScatterSection() {
           Where to scale vs cut
         </h2>
         <p className="mt-1 max-w-2xl text-sm text-ink-400">
-          Each bubble is a program at {CASE_STUDY.company}. X = CAC, Y = LTV, size = customers.
-          The diagonal is LTV = CAC (break-even).
+          Each bubble is a program at {CASE_STUDY.company}. Axes are in USD: CAC (cost to acquire
+          one customer) vs LTV (lifetime value). Bubble size = number of customers. Diagonal =
+          break-even (LTV = CAC).
         </p>
       </header>
 
       <div className="h-[340px] w-full md:h-[380px]">
         <ResponsiveContainer width="100%" height="100%">
-          <ScatterChart margin={{ top: 8, right: 20, bottom: 12, left: 4 }}>
+          <ScatterChart margin={{ top: 8, right: 24, bottom: 28, left: 16 }}>
             <CartesianGrid stroke={chartGridStroke} strokeDasharray="3 3" />
             <XAxis
               type="number"
               dataKey="cac"
               name="CAC"
+              unit=" USD"
               domain={[0, axisMax]}
-              tickFormatter={(v) => `${Math.round(v / 1000)}k`}
+              tickFormatter={(v) => formatUsdCompact(v)}
               stroke="#5a6f8c"
               tick={chartAxisTick}
               label={{
-                value: "CAC ($)",
+                value: "CAC (USD per customer)",
                 position: "insideBottom",
-                offset: -2,
+                offset: -16,
                 fill: "#b4c0d4",
                 fontSize: 12,
               }}
@@ -66,26 +68,34 @@ export function ScatterSection() {
               type="number"
               dataKey="ltv"
               name="LTV"
+              unit=" USD"
               domain={[0, axisMax]}
-              tickFormatter={(v) => `${Math.round(v / 1000)}k`}
+              tickFormatter={(v) => formatUsdCompact(v)}
               stroke="#5a6f8c"
               tick={chartAxisTick}
+              width={64}
               label={{
-                value: "LTV ($)",
+                value: "LTV (USD)",
                 angle: -90,
                 position: "insideLeft",
+                offset: 4,
                 fill: "#b4c0d4",
                 fontSize: 12,
               }}
             />
-            <ZAxis type="number" dataKey="customers" range={[80, 800]} />
+            <ZAxis type="number" dataKey="customers" range={[80, 800]} name="Customers" />
             <Tooltip
               {...chartTooltipStyle}
               formatter={(value: number, name: string) => {
-                if (name === "cac" || name === "ltv") {
-                  return [formatUsd(value), name.toUpperCase()];
+                if (name === "CAC" || name === "cac") {
+                  return [formatUsd(value), "CAC (USD)"];
                 }
-                if (name === "customers") return [value, "Customers"];
+                if (name === "LTV" || name === "ltv") {
+                  return [formatUsd(value), "LTV (USD)"];
+                }
+                if (name === "customers" || name === "Customers") {
+                  return [value, "Customers"];
+                }
                 return [value, name];
               }}
               labelFormatter={(_, payload) => payload?.[0]?.payload?.label ?? ""}
@@ -110,7 +120,7 @@ export function ScatterSection() {
       </div>
 
       <p className="mt-2 text-center text-xs text-ink-400">
-        Above the red line: LTV &gt; CAC. Prefer upper-left for efficient scale.
+        Axis values are USD (e.g. $8.6k = $8,600). Above the red line: LTV &gt; CAC.
       </p>
 
       <aside className="mt-4 rounded-xl border border-ink-700/60 bg-ink-950/50 px-4 py-3 text-sm leading-relaxed text-ink-300">

@@ -108,10 +108,10 @@ export function FunnelSection({ channel, audience, period, comparePeriod }: Prop
                 <div className="relative min-w-0 flex-1">
                   <div className="h-9 overflow-hidden rounded-lg bg-ink-800/90 ring-1 ring-ink-700/70">
                     <div
-                      className="flex h-full items-center justify-end bg-gradient-to-r from-sky-500 to-teal-400 px-3 transition-[width] duration-500"
+                      className="flex h-full items-center justify-end bg-gradient-to-r from-slate-600/90 to-teal-700/85 px-3 transition-[width] duration-500"
                       style={{ width: `${widthPct}%` }}
                     >
-                      <span className="font-mono text-xs font-semibold tabular-nums text-white drop-shadow-sm">
+                      <span className="font-mono text-xs font-semibold tabular-nums text-ink-100">
                         {formatCompact(value)}
                       </span>
                     </div>
