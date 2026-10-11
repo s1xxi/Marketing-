@@ -4,7 +4,6 @@ import { formatUsd, formatUsdCompact } from "../lib/format";
 import {
   CartesianGrid,
   Cell,
-  Legend,
   ReferenceLine,
   ResponsiveContainer,
   Scatter,
@@ -43,45 +42,28 @@ export function ScatterSection() {
         </p>
       </header>
 
-      <div className="h-[340px] w-full md:h-[380px]">
+      <div className="h-[300px] w-full md:h-[340px]">
         <ResponsiveContainer width="100%" height="100%">
-          <ScatterChart margin={{ top: 8, right: 24, bottom: 28, left: 16 }}>
+          <ScatterChart margin={{ top: 12, right: 20, bottom: 8, left: 8 }}>
             <CartesianGrid stroke={chartGridStroke} strokeDasharray="3 3" />
             <XAxis
               type="number"
               dataKey="cac"
               name="CAC"
-              unit=" USD"
               domain={[0, axisMax]}
               tickFormatter={(v) => formatUsdCompact(v)}
               stroke="#5a6f8c"
               tick={chartAxisTick}
-              label={{
-                value: "CAC (USD per customer)",
-                position: "insideBottom",
-                offset: -16,
-                fill: "#b4c0d4",
-                fontSize: 12,
-              }}
             />
             <YAxis
               type="number"
               dataKey="ltv"
               name="LTV"
-              unit=" USD"
               domain={[0, axisMax]}
               tickFormatter={(v) => formatUsdCompact(v)}
               stroke="#5a6f8c"
               tick={chartAxisTick}
-              width={64}
-              label={{
-                value: "LTV (USD)",
-                angle: -90,
-                position: "insideLeft",
-                offset: 4,
-                fill: "#b4c0d4",
-                fontSize: 12,
-              }}
+              width={56}
             />
             <ZAxis type="number" dataKey="customers" range={[80, 800]} name="Customers" />
             <Tooltip
@@ -109,8 +91,7 @@ export function ScatterSection() {
               strokeDasharray="6 4"
               ifOverflow="extendDomain"
             />
-            <Legend wrapperStyle={{ color: "#b4c0d4" }} />
-            <Scatter name="Programs" data={scatterData} fill="#5eead4">
+            <Scatter name="Programs" data={scatterData} fill="#5eead4" legendType="none">
               {scatterData.map((entry) => (
                 <Cell key={`cell-${entry.id}`} fill={entry.fill} />
               ))}
@@ -119,8 +100,13 @@ export function ScatterSection() {
         </ResponsiveContainer>
       </div>
 
-      <p className="mt-2 text-center text-xs text-ink-400">
-        Axis values are USD (e.g. $8.6k = $8,600). Above the red line: LTV &gt; CAC.
+      <div className="mt-1 flex items-center justify-between gap-3 text-xs text-ink-400">
+        <span className="w-14 shrink-0 text-left">LTV (USD)</span>
+        <span className="flex-1 text-center">CAC (USD per customer) · e.g. $8.6k = $8,600</span>
+        <span className="w-14 shrink-0" />
+      </div>
+      <p className="mt-2 text-center text-xs text-ink-500">
+        Above the red line: LTV &gt; CAC. Prefer upper-left for efficient scale.
       </p>
 
       <aside className="mt-4 rounded-xl border border-ink-700/60 bg-ink-950/50 px-4 py-3 text-sm leading-relaxed text-ink-300">
