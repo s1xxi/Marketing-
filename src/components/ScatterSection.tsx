@@ -30,15 +30,14 @@ export function ScatterSection() {
     <section className="rounded-2xl border border-ink-700/70 bg-ink-900/55 p-5 md:p-6">
       <header className="mb-4 border-b border-ink-700/50 pb-4">
         <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">
-          3 · Channel ROI (CAC vs LTV)
+          4 · Decide · Channel ROI (CAC vs LTV)
         </p>
         <h2 className="mt-1 text-lg font-semibold text-ink-100 md:text-xl">
           Where to scale vs cut
         </h2>
         <p className="mt-1 max-w-2xl text-sm text-ink-400">
-          Each bubble is a program at {CASE_STUDY.company}. Axes are in USD: CAC (cost to acquire
-          one customer) vs LTV (lifetime value). Bubble size = number of customers. Diagonal =
-          break-even (LTV = CAC).
+          Decision map for {CASE_STUDY.company}. Axes in USD: CAC vs LTV. Bubble size = customers.
+          Diagonal = break-even (LTV = CAC). Pair with the statistical evidence above.
         </p>
       </header>
 

@@ -55,14 +55,14 @@ export function CohortSection({ sourceFilter, metric, onMetricChange }: Props) {
       <header className="mb-4 flex flex-col gap-3 border-b border-ink-700/50 pb-4 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">
-            2 · Cohort quality
+            2 · Unify · Cohort quality
           </p>
           <h2 className="mt-1 text-lg font-semibold text-ink-100 md:text-xl">
             Retention & cumulative revenue
           </h2>
           <p className="mt-1 max-w-xl text-sm text-ink-400">
-            Monthly acquisition cohorts at {CASE_STUDY.company}. Toggle retention vs revenue
-            compounding.
+            Quality over time at {CASE_STUDY.company} — not just this week’s leads. Toggle
+            retention vs revenue compounding.
           </p>
         </div>
         <div className="flex gap-2">

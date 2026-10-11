@@ -290,3 +290,107 @@ export const INSIGHTS = {
   scatter:
     "Webinars sit highest on CAC yet highest on LTV — a deliberate ‘pay more, earn more’ motion worth scaling if capacity allows.",
 } as const;
+
+/** Sample evidence layer: statistical comparisons that back NextBound’s method. */
+export type StatTestRow = {
+  id: string;
+  question: string;
+  metric: string;
+  aLabel: string;
+  bLabel: string;
+  aValue: string;
+  bValue: string;
+  delta: string;
+  test: string;
+  pValue: string;
+  significant: boolean;
+  nNote: string;
+  implication: string;
+};
+
+export const STAT_TESTS: StatTestRow[] = [
+  {
+    id: "close-rate",
+    question: "Is LinkedIn’s close rate actually higher than Google’s?",
+    metric: "Lead → Closed Won rate",
+    aLabel: "LinkedIn",
+    bLabel: "Google",
+    aValue: "6.8%",
+    bValue: "2.1%",
+    delta: "+4.7 pp",
+    test: "Two-proportion z-test",
+    pValue: "p = 0.008",
+    significant: true,
+    nNote: "n = 1,656 LinkedIn leads · 6,624 Google leads",
+    implication: "Quality difference is unlikely noise — supports shifting budget toward LinkedIn.",
+  },
+  {
+    id: "ltv",
+    question: "Do LinkedIn customers produce higher LTV than Google?",
+    metric: "12-month LTV (USD)",
+    aLabel: "LinkedIn",
+    bLabel: "Google",
+    aValue: "$198k",
+    bValue: "$70k",
+    delta: "+$128k",
+    test: "Welch’s t-test",
+    pValue: "p < 0.001",
+    significant: true,
+    nNote: "n = 55 LinkedIn customers · 170 Google customers",
+    implication: "Higher CAC on LinkedIn can still be rational if LTV lift holds.",
+  },
+  {
+    id: "webinar",
+    question: "Is webinar LTV higher than paid search despite small volume?",
+    metric: "12-month LTV (USD)",
+    aLabel: "Webinar",
+    bLabel: "Paid search*",
+    aValue: "$310k",
+    bValue: "$66k",
+    delta: "+$244k",
+    test: "Bootstrap 95% CI (mean diff)",
+    pValue: "CI excludes 0",
+    significant: true,
+    nNote: "n = 16 webinar · 102 paid-search customers (*brand + non-brand + PMax)",
+    implication: "Small-n, but evidence supports selective webinar scale with sales capacity.",
+  },
+];
+
+export type DecisionRow = {
+  id: string;
+  action: "Scale" | "Hold / optimize" | "Cut / redesign";
+  program: string;
+  rationale: string;
+  evidence: string;
+};
+
+export const DECISIONS: DecisionRow[] = [
+  {
+    id: "d-li",
+    action: "Scale",
+    program: "LinkedIn (Sponsored + ABM)",
+    rationale: "Fewer leads, but higher close rate and LTV — better ROMI per dollar.",
+    evidence: "Close-rate and LTV tests significant; strong CAC:LTV on scatter.",
+  },
+  {
+    id: "d-webinar",
+    action: "Scale",
+    program: "Webinar Series",
+    rationale: "Highest LTV; expensive CAC is justified if AEs can absorb volume.",
+    evidence: "Bootstrap LTV lift vs paid search; top-right of ROI plot.",
+  },
+  {
+    id: "d-google",
+    action: "Hold / optimize",
+    program: "Google Search",
+    rationale: "Keep for efficient volume and fast early revenue; tighten non-brand.",
+    evidence: "High volume, weaker late-stage conversion and earlier cohort decay.",
+  },
+  {
+    id: "d-pmax",
+    action: "Cut / redesign",
+    program: "PMax Retargeting",
+    rationale: "Weak LTV relative to CAC; redeploy budget to proven quality channels.",
+    evidence: "Below-efficient zone on CAC vs LTV; thin contribution to closed-won quality.",
+  },
+];

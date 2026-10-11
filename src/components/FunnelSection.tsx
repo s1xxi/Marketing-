@@ -45,14 +45,14 @@ export function FunnelSection({ channel, audience, period, comparePeriod }: Prop
       <header className="mb-5 flex flex-col gap-3 border-b border-ink-700/50 pb-4 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">
-            1 · Funnel + revenue
+            1 · Unify · Funnel + revenue
           </p>
           <h2 className="mt-1 text-lg font-semibold text-ink-100 md:text-xl">
             Pipeline backbone
           </h2>
           <p className="mt-1 max-w-xl text-sm text-ink-400">
-            Full cycle for {CASE_STUDY.company}. Conversion and drop-off between stages;
-            closed-won revenue at {formatUsd(ACV_USD)} ACV.
+            Unified cycle for {CASE_STUDY.company} (ads → CRM). Conversion and drop-off between
+            stages; closed-won revenue at {formatUsd(ACV_USD)} ACV.
           </p>
         </div>
         <div className="rounded-xl border border-ink-700/80 bg-ink-800/60 px-4 py-3 text-left md:text-right">
