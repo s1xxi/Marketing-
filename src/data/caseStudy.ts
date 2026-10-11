@@ -1,6 +1,6 @@
 /**
- * Dummy case study: "Nimbus Analytics" — B2B revenue intelligence for mid-market SaaS.
- * All numbers are synthetic for dashboard demonstration.
+ * Case study: "Nimbus Analytics" — B2B revenue intelligence for mid-market SaaS.
+ * Sample numbers for the NextBound marketing intelligence demo.
  */
 
 export const CASE_STUDY = {
@@ -148,7 +148,7 @@ export function getFunnelCounts(
   return counts;
 }
 
-/** Average contract value used for revenue display (dummy). */
+/** Average contract value used for revenue display. */
 export const ACV_USD = 42_500;
 
 export function getClosedWonRevenueUsd(counts: Record<FunnelStageKey, number>): number {

@@ -41,27 +41,31 @@ export function FunnelSection({ channel, audience, period, comparePeriod }: Prop
   const compareRevenue = getClosedWonRevenueUsd(compare);
 
   return (
-    <section className="rounded-2xl border border-ink-700/80 bg-ink-900/60 p-6 shadow-xl shadow-black/20 backdrop-blur">
-      <header className="mb-6 flex flex-col gap-2 border-b border-ink-700/60 pb-4 md:flex-row md:items-end md:justify-between">
+    <section className="rounded-2xl border border-ink-700/70 bg-ink-900/55 p-5 md:p-6">
+      <header className="mb-5 flex flex-col gap-3 border-b border-ink-700/50 pb-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="text-xs font-medium uppercase tracking-widest text-accent">
-            1 — Funnel + revenue waterfall
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">
+            1 · Funnel + revenue
           </p>
-          <h2 className="mt-1 text-xl font-semibold text-ink-100">Pipeline backbone</h2>
-          <p className="mt-1 max-w-2xl text-sm text-ink-400">
-            Synthetic funnel for {CASE_STUDY.company}. Conversion and drop-off between each
-            stage; closed-won revenue uses a flat {formatUsd(ACV_USD)} ACV for demo purposes.
+          <h2 className="mt-1 text-lg font-semibold text-ink-100 md:text-xl">
+            Pipeline backbone
+          </h2>
+          <p className="mt-1 max-w-xl text-sm text-ink-400">
+            Full cycle for {CASE_STUDY.company}. Conversion and drop-off between stages;
+            closed-won revenue at {formatUsd(ACV_USD)} ACV.
           </p>
         </div>
-        <div className="rounded-xl border border-ink-700 bg-ink-800/50 px-4 py-3 text-right">
-          <p className="text-xs text-ink-400">Closed won revenue ({STAGE_LABELS.closed_won})</p>
-          <p className="font-mono text-lg font-semibold text-accent-glow">{formatUsd(revenue)}</p>
+        <div className="rounded-xl border border-ink-700/80 bg-ink-800/60 px-4 py-3 text-left md:text-right">
+          <p className="text-xs text-ink-400">Closed won revenue</p>
+          <p className="font-mono text-xl font-semibold tracking-tight text-accent-glow">
+            {formatUsd(revenue)}
+          </p>
           {comparePeriod !== period ? (
-            <p className="mt-1 text-xs text-ink-500">
+            <p className="mt-1 text-xs text-ink-400">
               vs {comparePeriod === "last_month" ? "last month" : "this month"}:{" "}
               <span
                 className={
-                  revenue >= compareRevenue ? "text-emerald-400" : "text-rose-300"
+                  revenue >= compareRevenue ? "font-medium text-emerald-400" : "font-medium text-rose-300"
                 }
               >
                 {formatPct(revenue / compareRevenue - 1, 1)}
@@ -71,42 +75,43 @@ export function FunnelSection({ channel, audience, period, comparePeriod }: Prop
         </div>
       </header>
 
-      <div className="space-y-3">
+      <div className="space-y-3.5">
         {STAGES.map((stage, idx) => {
           const value = current[stage];
-          const widthPct = Math.max(8, (value / maxW) * 100);
+          const widthPct = Math.max(10, (value / maxW) * 100);
           const prev = idx > 0 ? current[STAGES[idx - 1]] : null;
-          const convFromPrev =
-            prev && prev > 0 ? value / prev : null;
+          const convFromPrev = prev && prev > 0 ? value / prev : null;
           const dropFromPrev = convFromPrev !== null ? 1 - convFromPrev : null;
 
           return (
             <div key={stage}>
               {idx > 0 && convFromPrev !== null && dropFromPrev !== null ? (
-                <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1 pl-1 text-xs text-ink-500">
+                <div className="mb-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 pl-1 text-xs text-ink-400">
                   <span>
                     Conv from {STAGE_LABELS[STAGES[idx - 1]]}:{" "}
-                    <span className="font-mono text-ink-200">{formatPct(convFromPrev, 2)}</span>
+                    <span className="font-mono font-medium text-ink-100">
+                      {formatPct(convFromPrev, 2)}
+                    </span>
                   </span>
                   <span>
                     Drop-off:{" "}
-                    <span className="font-mono text-rose-300/90">
+                    <span className="font-mono font-medium text-rose-300">
                       {formatPct(dropFromPrev, 2)}
                     </span>
                   </span>
                 </div>
               ) : null}
-              <div className="flex items-center gap-4">
-                <div className="w-36 shrink-0 text-sm font-medium text-ink-200">
+              <div className="flex items-center gap-3 md:gap-4">
+                <div className="w-28 shrink-0 text-sm font-medium text-ink-200 md:w-36">
                   {STAGE_LABELS[stage]}
                 </div>
                 <div className="relative min-w-0 flex-1">
-                  <div className="h-10 overflow-hidden rounded-lg bg-ink-800/80 ring-1 ring-ink-700/80">
+                  <div className="h-9 overflow-hidden rounded-lg bg-ink-800/90 ring-1 ring-ink-700/70">
                     <div
-                      className="flex h-full items-center justify-end bg-gradient-to-r from-sky-600/90 to-accent/80 px-3 transition-[width] duration-500"
+                      className="flex h-full items-center justify-end bg-gradient-to-r from-sky-500 to-teal-400 px-3 transition-[width] duration-500"
                       style={{ width: `${widthPct}%` }}
                     >
-                      <span className="font-mono text-xs font-medium text-ink-950 tabular-nums">
+                      <span className="font-mono text-xs font-semibold tabular-nums text-white drop-shadow-sm">
                         {formatCompact(value)}
                       </span>
                     </div>
@@ -118,8 +123,8 @@ export function FunnelSection({ channel, audience, period, comparePeriod }: Prop
         })}
       </div>
 
-      <aside className="mt-6 rounded-xl border border-ink-700/80 bg-ink-950/40 p-4 text-sm text-ink-300">
-        <span className="font-medium text-ink-100">Read of the board: </span>
+      <aside className="mt-5 rounded-xl border border-ink-700/60 bg-ink-950/50 px-4 py-3 text-sm leading-relaxed text-ink-300">
+        <span className="font-medium text-ink-100">Insight: </span>
         {INSIGHTS.funnel}
       </aside>
     </section>

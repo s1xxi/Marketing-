@@ -9,6 +9,24 @@ html {
 body {
   @apply bg-ink-950 text-ink-100 font-sans min-h-screen;
   background-image:
-    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(94, 234, 212, 0.12), transparent),
-    radial-gradient(ellipse 60% 50% at 100% 0%, rgba(59, 130, 246, 0.08), transparent);
+    radial-gradient(ellipse 100% 70% at 10% -10%, rgba(56, 189, 248, 0.1), transparent 55%),
+    radial-gradient(ellipse 80% 50% at 90% 0%, rgba(94, 234, 212, 0.08), transparent 50%),
+    linear-gradient(180deg, #0c0f14 0%, #0e1420 100%);
+}
+
+/* Native select options stay readable on Windows dark UI */
+select option {
+  background-color: #1a2230;
+  color: #eef2f8;
+}
+
+/* Recharts default tooltip text can inherit black; force light */
+.recharts-default-tooltip,
+.recharts-tooltip-item,
+.recharts-tooltip-label {
+  color: #eef2f8 !important;
+}
+
+.recharts-legend-item-text {
+  color: #b4c0d4 !important;
 }
